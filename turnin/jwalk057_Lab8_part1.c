@@ -1,11 +1,13 @@
 /*	Author: lab
  *  Partner(s) Name: Jeremy Walker
  *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Assignment: Lab # 8 Exercise # 1
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
+ *
+ *	Demo link: https://youtu.be/OIYR1HbEtOY
  */
 #include <avr/io.h>
 #include "timer.h"
