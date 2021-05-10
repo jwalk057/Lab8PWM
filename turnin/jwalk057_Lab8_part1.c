@@ -49,33 +49,39 @@ double C4 = 261.63;
 double D4 = 293.66;
 double E4 = 329.63;
 
-//enum setToneSM {Start, B1, B2, B3} ex1SET;
+//enum setToneSM {Start,Hold} ex1SET;
 //enum playToneSM {Off, Play} ex1PLAY;
 
-// Couldn't get this to work
+// Couldn't get this to work right, kept playing the note after release
 /*
 void Tick(unsigned char b1, unsigned char b2, unsigned char b3){
 	switch(ex1SET){
 		case Start:
-			if(b1){ex1SET = B1;}
-    			else {ex1SET = Start;}
+			if(b1){ex1SET =Hold;}
+			else if(b2){ex1SET =Hold;}
+			else if(b3){ex1SET =Hold;}
+			else{ex1SET =Start;}
 			break;
-		case B1:
-			if(b1){
-				set_PWM(C4);
-				PWM_on();
-			}
-			else{set_PWM(0);}
+		case Hold:
+			if(b1||b2||b3){ex1SET =Hold;}
+			else{ex1SET =Start;}
 			break;
-		case B2:
+	}
+	switch(ex1SET){
+		case Start:
+			set_PWM(0);
 			break;
-		case B3:
-			break;
-	
+		case Hold:
+			if(b1){set_PWM(C4);}
+                        else if(b2){set_PWM(D4);}
+                        else if(b3){set_PWM(E4);}
+                        else if(!b1&&!b2&&!b3){set_PWM(0);}
 
 	}
+	
 }
 */
+
 
 int main(void) {
     /* Insert DDR and PORT initializations */
@@ -87,6 +93,8 @@ int main(void) {
 	unsigned char b2 = 0x00;
 	unsigned char b3 = 0x00;
 	PWM_on();
+	//TimerSet(200);
+	//TimerOn();
     /* Insert your solution below */
     while (1) {
 	b1 = ~PINA & 0x01;
@@ -97,6 +105,9 @@ int main(void) {
 	else if(!b1&&!b2&&b3){set_PWM(E4);}
         else{set_PWM(0);}
 
+	//Tick(b1,b2,b3);
+	//while(!TimerFlag);
+	//TimerFlag = 0;
     }
     return 1;
 }
